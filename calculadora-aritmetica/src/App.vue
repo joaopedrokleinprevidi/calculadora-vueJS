@@ -1,13 +1,9 @@
-
-
 <script setup>
 
 let valor01;
 let valor02;
 let sinal;
 let valorExibido;
-
-
 
 function resgatarValor01(event){
   valor01 = event.target.value;
@@ -48,22 +44,17 @@ function realizaCalculo(){
     sinal = '';
   }
 }
-
-
-
 </script>
 
 <template>
 
-
-  
   <header class="flex column">
     <h1>Calculadora Aritmética</h1>
     <h2>Digite os valores e selecione o sinal</h2>
   </header>
   
   <main>
-    
+
     <section class="calculadora flex">
       <input type="number" @change="resgatarValor01(); realizaCalculo()" class="gap number" id="number01">
       <select @change="recebeSinal(); realizaCalculo()" id="selecione" class="gap number">
