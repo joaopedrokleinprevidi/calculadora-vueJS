@@ -1,47 +1,19 @@
 <script setup>
+import { reactive } from 'vue'
+
+const estadoReativo = reactive({
+  valorExibido: 0
+})
 
 let valor01;
 let valor02;
 let sinal;
-let valorExibido;
-
-function resgatarValor01(event){
-  valor01 = event.target.value;
-  console.log(valor01)
-}
-
-function resgatarValor02(event){
-    valor02 = event.target.value;
-    console.log(valor02)
-}
-
-function recebeSinal(event){
-    sinal = String(event.target.value);
-    console.log(sinal)
-}
+let array;
 
 function realizaCalculo(){
-  if (!sinal == '' && !valor01 == undefined && !valor02 == undefined){
-    switch(sinal) {
-      case '+':
-        valorExibido = valor01 + valor02;
-        break;
-      case '-':
-        valorExibido = valor01 - valor02;
-        break
-      case '*':
-        valorExibido = valor01 * valor02;
-        break
-      case '/':
-        valorExibido = valor01 / valor02;
-        break;
-      default:
-        alert('Erro encontrado, pedimos desculpas e instruimos a atualizar a página e tentar novamente.')
-    }
-
-    valor01 = '';
-    valor02 = '';
-    sinal = '';
+  if ((sinal !== undefined && sinal !== '') && (valor01 !== undefined && valor01 !== '') && (valor02 !== undefined && valor02 !== '')){
+    array = String(valor01) + " " + String(sinal) + " " + String(valor02);
+    estadoReativo.valorExibido = eval(array)
   }
 }
 </script>
@@ -56,16 +28,16 @@ function realizaCalculo(){
   <main>
 
     <section class="calculadora flex">
-      <input type="number" @change="resgatarValor01(); realizaCalculo()" class="gap number" id="number01">
-      <select @change="recebeSinal(); realizaCalculo()" id="selecione" class="gap number">
+      <input type="number" @change="realizaCalculo()" v-model="valor01" class="gap number" id="number01">
+      <select @change="realizaCalculo()" v-model="sinal" id="selecione" class="gap number">
         <option value="+">+</option>
         <option value="-">-</option>
         <option value="*">*</option>
         <option value="/">/</option>
       </select> 
-      <input type="number" @change="resgatarValor02(); realizaCalculo()" class="gap number" id="number02">
+      <input type="number" @change="realizaCalculo()" v-model="valor02" class="gap number" id="number02">
     </section>
-    <p class="flex resultado">Resultado: {{ valorExibido }}</p>
+    <p class="flex resultado">Resultado: {{ estadoReativo.valorExibido }}</p>
     
   </main>
   
